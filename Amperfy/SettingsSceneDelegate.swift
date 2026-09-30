@@ -106,6 +106,9 @@ class SettingsSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
     os_log("Settings: openURLContexts", log: self.log, type: .info)
+    for URLContext in URLContexts {
+      _ = appDelegate.handleAliyunDriveURL(URLContext.url)
+    }
   }
 
   // This is the NSUserActivity that will be used to restore state when the Scene reconnects.

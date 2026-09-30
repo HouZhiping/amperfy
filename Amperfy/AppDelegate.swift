@@ -20,6 +20,7 @@
 //
 
 import AmperfyKit
+import AliyunpanSDK
 import BackgroundTasks
 import Intents
 import MediaPlayer
@@ -93,6 +94,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   public func resetMeta(_ accountInfo: AccountInfo) {
     AmperKit.shared.resetMeta(accountInfo)
+  }
+
+  func handleAliyunDriveURL(_ url: URL) -> Bool {
+    Aliyunpan.handleOpenURL(url)
   }
 
   public lazy var intentManager = {

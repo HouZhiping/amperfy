@@ -201,6 +201,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
     os_log("openURLContexts", log: self.log, type: .info)
+    for URLContext in URLContexts where appDelegate.handleAliyunDriveURL(URLContext.url) {
+      return
+    }
     guard appDelegate.isNormalInteraction else {
       return
     }

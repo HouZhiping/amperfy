@@ -30,6 +30,7 @@ enum NavigationTarget: String, CaseIterable, @MainActor Identifiable {
   case equalizer
   case swipe
   case artwork
+  case aliyunDrive
   case support
   case license
   case xcallback
@@ -49,6 +50,7 @@ enum NavigationTarget: String, CaseIterable, @MainActor Identifiable {
     case .equalizer: EqualizerSettingsView()
     case .swipe: SwipeSettingsView()
     case .artwork: ArtworkSettingsView()
+    case .aliyunDrive: AliyunDriveView()
     case .support: SupportSettingsView()
     case .license: LicenseSettingsView()
     case .xcallback: XCallbackURLsSetttingsView()
@@ -66,6 +68,7 @@ enum NavigationTarget: String, CaseIterable, @MainActor Identifiable {
     case .library: "Library"
     case .swipe: "Swipe"
     case .artwork: "Artwork"
+    case .aliyunDrive: "Aliyun Drive"
     case .support: "Support"
     case .license: "License"
     case .equalizer: "Equalizer"
@@ -88,6 +91,7 @@ enum NavigationTarget: String, CaseIterable, @MainActor Identifiable {
     case .equalizer: .equalizer
     case .swipe: .arrowRight
     case .artwork: .photo
+    case .aliyunDrive: .musicLibrary
     case .support: .person
     case .license: .doc
     case .xcallback: .arrowTurnUp
@@ -107,6 +111,7 @@ enum NavigationTarget: String, CaseIterable, @MainActor Identifiable {
     case .equalizer: "chart.bar.xaxis"
     case .swipe: "arrow.right.circle.fill"
     case .artwork: "photo.fill"
+    case .aliyunDrive: "externaldrive.fill"
     case .support: "person.circle"
     case .license: "doc.fill"
     case .xcallback: "arrowshape.turn.up.backward.circle.fill"

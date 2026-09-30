@@ -1724,6 +1724,29 @@ public class LibraryStorage: PlayableFileCachable {
     return radios?.lazy.compactMap { Radio(managedObject: $0) }.first
   }
 
+  /// Creates or refreshes a hidden radio-backed playable for an external stream.
+  ///
+  /// External providers often return short-lived signed URLs. Reusing a stable identifier keeps
+  /// Core Data and the play queue consistent while allowing the URL to be refreshed immediately
+  /// before playback. The item is marked as remotely deleted so it does not appear in the user's
+  /// server-managed radio library.
+  public func upsertExternalStream(
+    account: Account,
+    id: String,
+    title: String,
+    url: URL,
+    contentType: String?
+  ) -> Radio {
+    let radio = getRadio(for: account, id: id) ?? createRadio(account: account)
+    radio.id = id
+    radio.title = title
+    radio.url = url.absoluteString
+    radio.contentType = contentType
+    radio.remoteStatus = .deleted
+    saveContext()
+    return radio
+  }
+
   // MARK: SearchHistory
 
   public func getAllSearchHistory() -> [SearchHistoryItem] {

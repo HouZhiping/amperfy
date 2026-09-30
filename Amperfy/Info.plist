@@ -12,6 +12,8 @@
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>AliyunDriveAppID</key>
+	<string>$(ALIYUN_DRIVE_APP_ID)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -30,6 +32,16 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>amperfy</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Aliyun Drive OAuth</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>smartdrive$(ALIYUN_DRIVE_APP_ID)</string>
 			</array>
 		</dict>
 	</array>
@@ -63,6 +75,10 @@
 	<string>public.app-category.music</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>smartdrive</string>
+	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
