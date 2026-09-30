@@ -15,6 +15,9 @@ final class AliyunDriveViewModel: ObservableObject {
 
   let parentFileID: String
   let service: AliyunDriveProviding
+  private var appDelegate: AppDelegate {
+    UIApplication.shared.delegate as! AppDelegate
+  }
 
   init(parentFileID: String, service: AliyunDriveProviding = AliyunDriveService.shared) {
     self.parentFileID = parentFileID
