@@ -45,6 +45,7 @@ jobs:
             -configuration Debug \
             -destination 'generic/platform=iOS Simulator' \
             -derivedDataPath "$RUNNER_TEMP/DerivedData" \
+            ALIYUN_DRIVE_APP_ID="${{ secrets.ALIYUN_DRIVE_APP_ID }}" \
             CODE_SIGNING_ALLOWED=NO \
             build \
             | tee xcodebuild.log
@@ -57,3 +58,4 @@ jobs:
           path: xcodebuild.log
           if-no-files-found: ignore
           retention-days: 7
+

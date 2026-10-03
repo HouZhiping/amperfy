@@ -10,6 +10,7 @@ import SwiftUI
 final class AliyunDriveViewModel: ObservableObject {
   @Published private(set) var items: [AliyunDriveItem] = []
   @Published private(set) var isLoading = false
+  @Published private(set) var isAuthorized: Bool
   @Published private(set) var playingItemID: String?
   @Published var errorMessage: String?
 
@@ -22,6 +23,7 @@ final class AliyunDriveViewModel: ObservableObject {
   init(parentFileID: String, service: AliyunDriveProviding = AliyunDriveService.shared) {
     self.parentFileID = parentFileID
     self.service = service
+    self.isAuthorized = service.isAuthorized
   }
 
   func load() async {
@@ -30,6 +32,7 @@ final class AliyunDriveViewModel: ObservableObject {
     defer { isLoading = false }
     do {
       items = try await service.list(parentFileID: parentFileID)
+      isAuthorized = service.isAuthorized
       errorMessage = nil
     } catch {
       errorMessage = error.localizedDescription
@@ -63,6 +66,7 @@ final class AliyunDriveViewModel: ObservableObject {
   func disconnect() {
     service.disconnect()
     items = []
+    isAuthorized = false
   }
 }
 
@@ -93,6 +97,18 @@ struct AliyunDriveView: View {
               "ALIYUN_DRIVE_APP_ID in the Amperfy target build settings."
           )
         )
+      } else if !model.isAuthorized && !model.isLoading {
+        VStack(spacing: 16) {
+          ContentUnavailableView(
+            "Connect Aliyun Drive",
+            systemImage: "externaldrive.badge.plus",
+            description: Text("Authorize Amperfy to browse and play your cloud music.")
+          )
+          Button("Connect") {
+            Task { await model.load() }
+          }
+          .buttonStyle(.borderedProminent)
+        }
       } else if model.isLoading && model.items.isEmpty {
         ProgressView("Loading Aliyun Drive…")
       } else {
@@ -112,7 +128,7 @@ struct AliyunDriveView: View {
       Text(model.errorMessage ?? "Unknown error")
     }
     .toolbar {
-      if model.service.isAuthorized {
+      if model.isAuthorized {
         ToolbarItem(placement: .topBarTrailing) {
           Button("Disconnect", role: .destructive) { model.disconnect() }
         }
@@ -161,3 +177,4 @@ struct AliyunDriveView: View {
     }
   }
 }
+
