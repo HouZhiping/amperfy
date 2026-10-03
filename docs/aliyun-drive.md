@@ -19,4 +19,3 @@ uses the official PKCE flow, so no client secret or custom backend is needed.
 
 After configuration, open **Settings > Aliyun Drive**, authorize access, browse folders, and tap
 an audio file to play it through Amperfy's existing player.
-
